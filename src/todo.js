@@ -28,4 +28,7 @@ class TodoItem {
         return this.completed;
     }
 
+    toggleComplete() {
+        this.completed = !this.completed;
+    }
 }
