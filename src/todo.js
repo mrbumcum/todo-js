@@ -48,6 +48,15 @@ class TodoItem {
         }
     }
 
+    removeTag(tag) {
+        if (this._tags.contains(String(tag))) {
+            tag = String(tag);
+            this._tags.pop(tag);
+        } else {
+            console.log("This value is not present")
+        }
+    }
+
     toggleComplete() {
         this._completed = !this._completed;
     }
