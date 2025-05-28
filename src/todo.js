@@ -5,6 +5,7 @@ export class TodoItem {
         this._notes = notes;
         this._priority = priority;
         this._completed = false;
+        this._id = crypto.randomUUID();
     }
 
     get title() {
@@ -25,6 +26,10 @@ export class TodoItem {
 
     get completed() {
         return this._completed;
+    }
+
+    get id() {
+        return this._id;
     }
 
     set title(title) {
