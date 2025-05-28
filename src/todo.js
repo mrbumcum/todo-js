@@ -28,6 +28,20 @@ class TodoItem {
         return this.completed;
     }
 
+    set title(title) {
+        this.title = title; 
+    }
+
+    set notes(notes) {
+        this.notes = notes;
+    }
+
+    set priority(priority) {
+        if (priority === "low" || priority === "medium" || priority === "high"){
+            this.priority = priority;
+        }
+    }
+
     toggleComplete() {
         this.completed = !this.completed;
     }
