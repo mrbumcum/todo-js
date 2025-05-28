@@ -1,48 +1,47 @@
 class TodoItem {
     constructor(title, tags = [], notes = "", priority = "normal") {
-        this.title = this.title;
-        this.tags = this.tags;
-        this.notes = this.notes;
-        this.priority = this.priority;
-        this.completed = false;
+        this._title = title;
+        this._tags = tags;
+        this._notes = notes;
+        this._priority = priority;
+        this._completed = false;
     }
 
-
     get title() {
-        return this.title;
+        return this._title;
     }
 
     get tags() {
-        return this.tags;
+        return this._tags;
     }
 
     get notes() {
-        return this.notes;
+        return this._notes;
     }
 
     get priority() {
-        return this.priority;
+        return this._priority;
     }
 
     get completed() {
-        return this.completed;
+        return this._completed;
     }
 
     set title(title) {
-        this.title = title; 
+        this._title = title; 
     }
 
     set notes(notes) {
-        this.notes = notes;
+        this._notes = notes;
     }
 
     set priority(priority) {
         if (priority === "low" || priority === "medium" || priority === "high"){
-            this.priority = priority;
+            this._priority = priority;
         }
     }
 
     toggleComplete() {
-        this.completed = !this.completed;
+        this._completed = !this._completed;
     }
 }
