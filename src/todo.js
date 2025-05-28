@@ -41,6 +41,13 @@ class TodoItem {
         }
     }
 
+    addTag(tag) {
+        if (this._tags.contains(String(tag))) {
+            tag = String(tag);
+            this._tags.push(tag);
+        }
+    }
+
     toggleComplete() {
         this._completed = !this._completed;
     }
