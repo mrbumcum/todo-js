@@ -1,9 +1,9 @@
 import { TodoItem } from "./todo";
 
-createTodoItem() {
+export function createTodoItem() {
     return null;
 }
 
-displayTodoItems() {
+export function displayTodoItems() {
     return null;
 }

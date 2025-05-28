@@ -20,9 +20,6 @@
     line-height: 1.5;
     /* 5. Improve text rendering */
     -webkit-font-smoothing: antialiased;
-    background: url("./assets/restaurant-image.jpg") no-repeat fixed;
-    background-size: cover;
-    background-position: center;
     min-height: 100vh;
     margin: 0;
     padding: 0;
