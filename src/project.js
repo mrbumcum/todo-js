@@ -15,7 +15,7 @@ export class Project {
         this._todoList.push(new TodoItem(title, tags, notes, priority))
     }
 
-    removeTodo() {
-        return null;
+    removeTodo(id) {
+        this._todoList = this._todoList.filter(t => t.id != id)
     }
 }
