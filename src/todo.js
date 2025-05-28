@@ -1,4 +1,4 @@
-class TodoItem {
+export class TodoItem {
     constructor(title, tags = [], notes = "", priority = "normal") {
         this._title = title;
         this._tags = tags;
@@ -42,18 +42,18 @@ class TodoItem {
     }
 
     addTag(tag) {
-        if (this._tags.contains(String(tag))) {
-            tag = String(tag);
+        tag = String(tag);
+        if (!this._tags.includes(tag)) {
             this._tags.push(tag);
         }
     }
 
     removeTag(tag) {
-        if (this._tags.contains(String(tag))) {
-            tag = String(tag);
-            this._tags.pop(tag);
+        tag = String(tag);
+        if (this._tags.includes(tag)) {
+            this._tags = this._tags.filter(t => t !== tag);
         } else {
-            console.log("This value is not present")
+            console.log("This tag is not present");
         }
     }
 
