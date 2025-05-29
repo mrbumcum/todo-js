@@ -1,9 +1,25 @@
 import { TodoItem } from "./todo";
 
-export function createTodoItem() {
+function createTodoItem() {
     return null;
 }
 
-export function displayTodoItems() {
+function displayTodoItems() {
+    return null;
+}
+
+function deleteProject() {
+    return null;
+}
+
+function createProject() {
+    return null;
+}
+
+function displayProjects() {
+    return null;
+}
+
+function deleteProject() {
     return null;
 }
