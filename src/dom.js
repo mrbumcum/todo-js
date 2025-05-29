@@ -16,7 +16,7 @@ import { TodoItem } from "./todo";
 
 export function displayTodoItems(currentProject) {
     const todoContainer = document.querySelector('.todo-container');
-    todoContainer.replaceChildren(); // Clear existing todos using replaceChildren instead of innerHTML
+    clear(todoContainer);
 
     currentProject.todoList.forEach((todoItem) => {
         const todoElement = document.createElement('div');
@@ -77,11 +77,18 @@ export function displayTodoItems(currentProject) {
 
 
 export function displayProjects(projectList) {
-    const projectContainer = document.querySelector('project-contaienr');
-    projectContainer.replaceChild();
+    const projectContainer = document.querySelector('.project-container');
+    clear(projectContainer);
 
     projectList.forEach((project) => {
         const titleDiv = document.createElement("div");
         titleDiv.textContent = project.title;
     });    
+}
+
+
+function clear(parent) {
+    while(parent.firstChild) {
+        parent.removeChild(parent.firstChild)
+    }
 }
