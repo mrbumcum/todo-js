@@ -1,25 +1,75 @@
 import { TodoItem } from "./todo";
 
-function createTodoItem() {
-    return null;
-}
 
-function displayTodoItems() {
-    return null;
-}
 
-function deleteProject() {
-    return null;
-}
+// <div class="todo-item">
+    // <button class="toggleComplete">+</button>
+    // <div class="todo-information">
+    //     <div class="todo-title"></div>
+    //     <div class="todo-notes"></div>
+    //     <div class="todo-tags"></div>
+    //     <div class="todo-date"></div>
+    //     <div class="todo-misc">
+    //         <div id="addDate"></div>
+    //         <div id="addTag"></div>
+    //     </div>
+    // </div>
+// </div>
 
-function createProject() {
-    return null;
-}
+export function displayTodoItems(currentProject) {
+    const todoContainer = document.querySelector('.todo-container');
+    todoContainer.replaceChildren(); // Clear existing todos using replaceChildren instead of innerHTML
 
-function displayProjects() {
-    return null;
-}
+    currentProject.todoList.forEach((todoItem) => {
+        const todoElement = document.createElement('div');
+        todoElement.classList.add('todo-item');
 
-function deleteProject() {
+        const toggleButton = document.createElement('button');
+        toggleButton.classList.add('toggleComplete');
+        toggleButton.textContent = '+';
+
+        const todoInfo = document.createElement('div');
+        todoInfo.classList.add('todo-information');
+
+        const titleDiv = document.createElement('div');
+        titleDiv.classList.add('todo-title');
+        titleDiv.textContent = todoItem.title;
+
+        const notesDiv = document.createElement('div');
+        notesDiv.classList.add('todo-notes');
+        notesDiv.textContent = todoItem.notes;
+
+        const tagsDiv = document.createElement('div');
+        tagsDiv.classList.add('todo-tags');
+        tagsDiv.textContent = todoItem.tags.join(', ');
+
+        const dateDiv = document.createElement('div');
+        dateDiv.classList.add('todo-date');
+
+        const miscDiv = document.createElement('div');
+        miscDiv.classList.add('todo-misc');
+
+        const addDateDiv = document.createElement('div');
+        addDateDiv.id = 'addDate';
+
+        const addTagDiv = document.createElement('div');
+        addTagDiv.id = 'addTag';
+
+        miscDiv.appendChild(addDateDiv);
+        miscDiv.appendChild(addTagDiv);
+
+        todoInfo.appendChild(titleDiv);
+        todoInfo.appendChild(notesDiv);
+        todoInfo.appendChild(tagsDiv);
+        todoInfo.appendChild(dateDiv);
+        todoInfo.appendChild(miscDiv);
+
+        todoElement.appendChild(toggleButton);
+        todoElement.appendChild(todoInfo);
+
+        todoContainer.appendChild(todoElement);
+    });
+}
+export function displayProjects() {
     return null;
 }
