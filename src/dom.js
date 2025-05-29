@@ -1,7 +1,5 @@
 import { TodoItem } from "./todo";
 
-
-
 // <div class="todo-item">
     // <button class="toggleComplete">+</button>
     // <div class="todo-information">
@@ -70,6 +68,20 @@ export function displayTodoItems(currentProject) {
         todoContainer.appendChild(todoElement);
     });
 }
-export function displayProjects() {
-    return null;
+
+
+// <div class="project-item">
+//     <div class="project-icon"></div>
+//     <div class="project-name"></div>
+// </div>
+
+
+export function displayProjects(projectList) {
+    const projectContainer = document.querySelector('project-contaienr');
+    projectContainer.replaceChild();
+
+    projectList.forEach((project) => {
+        const titleDiv = document.createElement("div");
+        titleDiv.textContent = project.title;
+    });    
 }
