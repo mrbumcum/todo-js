@@ -5,6 +5,7 @@ export class TodoItem {
         this._notes = notes;
         this._priority = priority;
         this._completed = false;
+        this._trash = false;
         this._id = crypto.randomUUID();
     }
 
@@ -64,5 +65,9 @@ export class TodoItem {
 
     toggleComplete() {
         this._completed = !this._completed;
+    }
+
+    toggleTrash() {
+        this._trash = !this._trash;
     }
 }

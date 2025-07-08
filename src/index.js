@@ -8,6 +8,7 @@ let currentProject = inboxProject;
 
 // Add a test todo item
 inboxProject.createAndAddTodo("Test Todo", ["test"], "This is a test todo item", "high");
-
 displayProjects(projectList);
 displayTodoItems(currentProject);
+
+
