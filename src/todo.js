@@ -1,5 +1,5 @@
 export class TodoItem {
-    constructor(title, tags = [], notes = "", priority = "normal") {
+    constructor(title, tags = [], notes = "", priority = "medium") {
         this._title = title;
         this._tags = tags;
         this._notes = notes;

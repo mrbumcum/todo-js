@@ -44,8 +44,6 @@ export function displayTodoItems(currentProject) {
         const dateDiv = document.createElement('div');
         dateDiv.classList.add('todo-date');
 
-        const miscDiv = document.createElement('div');
-        miscDiv.classList.add('todo-misc');
 
         const addDateDiv = document.createElement('div');
         addDateDiv.id = 'addDate';
@@ -60,7 +58,6 @@ export function displayTodoItems(currentProject) {
         todoInfo.appendChild(notesDiv);
         todoInfo.appendChild(tagsDiv);
         todoInfo.appendChild(dateDiv);
-        todoInfo.appendChild(miscDiv);
 
         todoElement.appendChild(toggleButton);
         todoElement.appendChild(todoInfo);
@@ -86,6 +83,9 @@ export function displayProjects(projectList) {
     });    
 }
 
+export function displayTodoCreation() {
+    
+}
 
 function clear(parent) {
     while(parent.firstChild) {

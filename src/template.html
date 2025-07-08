@@ -6,13 +6,26 @@
     <title>Todo JS</title>
 </head>
 <body>
-    <div class="project-container"></div>
+    <div class="container">
+        <div class="left-column">
+            <div class="app-desc">
+                <img src="#" alt="App logo">
+                <h1>Todo Now!</h1>
+            </div>
+            <div type="button" class="button" id="addTodo"> Add Todo </div>
+            <div class="project-container">
+                <div class="project-header">
+                    <h1>Projects:</h1>
+                    <button type="button" class="addButton" id="addProject"></button>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="project-desc"></div>
+            <div class="todo-container"></div>
 
-    <button type="button" class="addButton" id="addProject"></button>
-
-    <div type="button" class="button" id="addTodo"></div>
-    <div class="todo-container"></div>
-
+        </div>
+    </div>
 
 </body>
 </html>
