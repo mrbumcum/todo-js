@@ -13,11 +13,18 @@
                 <h1>Todo Now!</h1>
             </div>
             <div type="button" class="button" id="addTodo"> Add Todo </div>
+            <div class="project-header">
+                <h1>Projects:</h1>
+                <button type="button" class="addButton" id="addProject"></button>
+            </div>
             <div class="project-container">
-                <div class="project-header">
-                    <h1>Projects:</h1>
-                    <button type="button" class="addButton" id="addProject"></button>
-                </div>
+
+                <dialog id="projectModal">
+                    <form id="projectForm" method="dialog">
+                        <input type="text" name="projectTitle" id="projectTitle">
+                        <button type="submit"></button>
+                    </form>
+                </dialog>
             </div>
         </div>
         <div class="right-column">

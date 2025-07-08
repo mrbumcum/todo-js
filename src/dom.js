@@ -82,6 +82,14 @@ export function displayProjects(projectList) {
     });    
 }
 
+export function displayProjectCreation() {
+    const projectModal = document.getElementById("projectModal");
+    const addProjectBtn = document.getElementById("addProject");
+
+    addProjectBtn.addEventListener("click", function(event) {
+        projectModal.showModal();
+    })
+}
 
 export function displayTodoCreation() {
     const todoModal = document.getElementById("todoModal");
