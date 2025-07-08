@@ -71,3 +71,9 @@ export class TodoItem {
         this._trash = !this._trash;
     }
 }
+
+
+export function createTodo(title, tags = [], notes = "", priority = "medium") {
+    const todoItem = new TodoItem(title, tags, notes, priority);
+    return todoItem
+}
