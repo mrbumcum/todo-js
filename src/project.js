@@ -22,11 +22,6 @@ export class Project {
         this._todoList.push(todoItem);
     }
 
-    createAndAddTodo(title, tags = [], notes = "", priority = "normal") {
-        const todoItem = new TodoItem(title, tags, notes, priority);
-        this.addTodo(todoItem);
-        return todoItem;
-    }
 
     removeTodo(todoId) {
         this._todoList = this._todoList.filter(todo => todo.id !== todoId);

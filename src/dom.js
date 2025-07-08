@@ -1,4 +1,4 @@
-import { TodoItem } from "./todo";
+import { TodoItem, createTodo } from "./todo";
 
 // <div class="todo-item">
     // <button class="toggleComplete">+</button>
@@ -51,9 +51,6 @@ export function displayTodoItems(currentProject) {
         const addTagDiv = document.createElement('div');
         addTagDiv.id = 'addTag';
 
-        miscDiv.appendChild(addDateDiv);
-        miscDiv.appendChild(addTagDiv);
-
         todoInfo.appendChild(titleDiv);
         todoInfo.appendChild(notesDiv);
         todoInfo.appendChild(tagsDiv);
@@ -84,8 +81,6 @@ export function displayProjects(projectList) {
 }
 
 
-
-
 export function displayTodoCreation() {
     const todoModal = document.getElementById("todoModal");
     const addTodo = document.getElementById("addTodo");
@@ -101,6 +96,24 @@ export function closeTodoCreation() {
 
     closeModalBtn.addEventListener("click", () => {
         todoModal.close()
+    })
+}
+
+export function getTodoFormData() {
+    const form = document.getElementById("todoForm");
+
+    form.addEventListener("submit", function(event){
+        event.preventDefault();
+
+        const formData = new FormData(form);
+    
+        return {
+            title: formData.get("title"),
+            notes: formData.get("notes"),
+            tags: formData.get("tags"),
+            date: formData.get("date"),
+            priority: formData.get("priority")
+        };
     })
 }
 
