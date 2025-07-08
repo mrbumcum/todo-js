@@ -21,8 +21,7 @@ export class Project {
     addTodo(todoItem) {
         this._todoList.push(todoItem);
     }
-
-
+    
     removeTodo(todoId) {
         this._todoList = this._todoList.filter(todo => todo.id !== todoId);
     }

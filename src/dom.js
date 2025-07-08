@@ -122,6 +122,9 @@ export function getTodoFormData(currentProject) {
 
         const newTodo = createTodo(title, tags, notes, priority);
         currentProject.addTodo(newTodo);
+        
+        closeTodoCreation();
+        displayTodoItems(currentProject);
     })
 }
 
