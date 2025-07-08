@@ -1,4 +1,6 @@
 import { TodoItem, createTodo } from "./todo";
+import { compareAsc, format } from "date-fns";
+
 
 // <div class="todo-item">
     // <button class="toggleComplete">+</button>
@@ -99,23 +101,31 @@ export function closeTodoCreation() {
     })
 }
 
-export function getTodoFormData() {
+export function getTodoFormData(currentProject) {
     const form = document.getElementById("todoForm");
 
     form.addEventListener("submit", function(event){
         event.preventDefault();
 
         const formData = new FormData(form);
-    
-        return {
-            title: formData.get("title"),
-            notes: formData.get("notes"),
-            tags: formData.get("tags"),
-            date: formData.get("date"),
-            priority: formData.get("priority")
-        };
+
+
+        const title = formData.get("title");
+        const notes = formData.get("notes") || "";
+        // Handle date input later
+        const date = formData.get("date") || "";
+        const priority = formData.get("priority") || "medium";
+        const tags = formData.get("tags")
+        .split(",")
+        .map(tag => tag.trim())
+        .filter(tag => tag !== "");
+
+        const newTodo = createTodo(title, tags, notes, priority);
+        currentProject.addTodo(newTodo);
     })
 }
+
+
 
 function clear(parent) {
     while(parent.firstChild) {
