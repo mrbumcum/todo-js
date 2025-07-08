@@ -83,8 +83,25 @@ export function displayProjects(projectList) {
     });    
 }
 
+
+
+
 export function displayTodoCreation() {
-    
+    const todoModal = document.getElementById("todoModal");
+    const addTodo = document.getElementById("addTodo");
+
+    addTodo.addEventListener("click", ()=>{
+        todoModal.showModal();
+    })
+}
+
+export function closeTodoCreation() {
+    const todoModal = document.getElementById("todoModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    closeModalBtn.addEventListener("click", () => {
+        todoModal.close()
+    })
 }
 
 function clear(parent) {
