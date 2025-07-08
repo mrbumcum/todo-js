@@ -27,5 +27,32 @@
         </div>
     </div>
 
+    <dialog id="todoModal">
+        <form id="todoForm" method="dialog">
+            <button type="button" id="closeModalBtn">&times;</button>
+            <h2>Add Todo</h2>
+            <label for="todoTitle">Title: </label>
+            <input type="text" name="todoTitle" id="todoTitle" required>
+    
+            <label for="todoTags">Tags:</label>
+            <input type="text" name="todoTags" id="todoTags">
+    
+            <label for="todoNotes">Notes:</label>
+            <input type="text" name="todoNotes" id="todoNotes">
+    
+            <label for="todoDate">Due Date:</label>
+            <input type="datetime-local" name="todoDate" id="todoDate">
+    
+            <label for="todoPriority">Priority:</label>
+            <select name="todoPriority" id="todoPriority">
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+    
+            <button type="submit">Submit</button>
+            <button type="reset">Discard</button>
+        </form>
+        </dialog>
 </body>
 </html>
