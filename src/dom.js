@@ -72,7 +72,7 @@ export function updateProjects(projectList) {
     });    
 }
 
-export function displayProjectCreation() {
+export function openProjectCreation() {
     const projectModal = document.getElementById("projectModal");
     const addProjectBtn = document.getElementById("addProject");
 
@@ -81,11 +81,22 @@ export function displayProjectCreation() {
     })
 }
 
-export function projectCreation() {
+export function projectCreation(projectList) {
+    const projectForm = document.getElementById("projectForm");
 
+    projectForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(projectForm);
+        const projectTitle = formData.get("projectTitle");
+        const newProject = createProject(projectTitle);
+        projectList.push(newProject);
+        updateProjects(projectList);
+        projectModal.close();
+    })
 }
 
-export function displayTodoCreation() {
+export function openTodoCreation() {
     const todoModal = document.getElementById("todoModal");
     const addTodo = document.getElementById("addTodo");
 
@@ -103,11 +114,7 @@ export function closeTodoCreation() {
     })
 }
 
-export function todoCreation() {
-    
-}
-
-export function getTodoFormData(currentProject) {
+export function todoCreation (currentProject) {
     const form = document.getElementById("todoForm");
 
     form.addEventListener("submit", function(event){
@@ -129,8 +136,8 @@ export function getTodoFormData(currentProject) {
         const newTodo = createTodo(title, tags, notes, priority);
         currentProject.addTodo(newTodo);
         
-        closeTodoCreation();
         updateTodos(currentProject);
+        closeTodoCreation();
     })
 }
 
