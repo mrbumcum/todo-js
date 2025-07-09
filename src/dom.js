@@ -1,5 +1,4 @@
-import { TodoItem, createTodo } from "./todo";
-import { compareAsc, format } from "date-fns";
+import { createTodo } from "./todo";
 
 
 // <div class="todo-item">
@@ -16,7 +15,7 @@ import { compareAsc, format } from "date-fns";
     // </div>
 // </div>
 
-export function displayTodoItems(currentProject) {
+export function displayTodoItems() {
     const todoContainer = document.querySelector('.todo-container');
     clear(todoContainer);
 
@@ -109,7 +108,7 @@ export function closeTodoCreation() {
     })
 }
 
-export function getTodoFormData(currentProject) {
+export function getTodoFormData() {
     const form = document.getElementById("todoForm");
 
     form.addEventListener("submit", function(event){
