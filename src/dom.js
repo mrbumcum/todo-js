@@ -61,8 +61,14 @@ export function updateProjects(projectList) {
     clear(projectContainer);
 
     projectList.forEach((project) => {
-        const titleDiv = document.createElement("div");
-        titleDiv.textContent = project.title;
+        const projectElement = document.createElement("div");
+        projectElement.classList.add("project-item");
+
+        const projectIcon = document.createElement("div");
+        projectIcon.classList.add("project-icon");
+
+        const projectName = document.createElement("div");
+        projectName.classList.add("project-name");
     });    
 }
 
