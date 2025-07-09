@@ -1,9 +1,8 @@
-import { TodoItem } from "./todo";
-
 export class Project {
     constructor(name, todoList = []) {
         this._name = name;
         this._todoList = todoList;
+        this._id = crypto.randomUUID();
     }
 
     get name() {

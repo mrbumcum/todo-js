@@ -1,22 +1,26 @@
 import { updateTodos, updateProjects, openProjectCreation, openTodoCreation, closeTodoCreation, getTodoFormData } from "./dom";
+import { Project } from "./project";
 
-let projectList = ["Inbox"]
-let currentProject = "Inbox"
+const defaultProject = new Project("Inbox");
+let projectList = [defaultProject];
+let currentProject = projectList[0];
 
-// Need to address the issue of not getting latest values for currentProject later
+// TODO: Add event listeners for project creation and todo creation
 document.addEventListener('DOMContentLoaded', () => {
     updateTodos(currentProject);
     openProjectCreation();
     openTodoCreation();
     closeTodoCreation();
-    updateProjects();
-    getTodoFormData(currentProject); })
+    updateProjects(projectList);
+    getTodoFormData(currentProject); 
+    projectCreation(projectList);
+    todoCreation(currentProject);
+})
 
-function switchProject (newProject) {
-    currentProject = newProject
-    updateTodos();
+function switchProject (newProjectName) {
+    currentProject = projectList.find(project => project.name === newProjectName);
+    updateTodos(currentProject);
 }
-
 
 
 

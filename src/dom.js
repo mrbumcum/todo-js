@@ -1,4 +1,5 @@
-import { createTodo } from "./todo";
+import { TodoItem } from "./todo";
+import { Project } from "./project";
 
 export function updateTodos(currentProject) {
     const todoContainer = document.querySelector('.todo-container');
@@ -69,6 +70,11 @@ export function updateProjects(projectList) {
 
         const projectName = document.createElement("div");
         projectName.classList.add("project-name");
+        projectName.textContent = project.name;
+
+        projectElement.appendChild(projectIcon);
+        projectElement.appendChild(projectName);
+        projectContainer.appendChild(projectElement);
     });    
 }
 
@@ -89,7 +95,7 @@ export function projectCreation(projectList) {
 
         const formData = new FormData(projectForm);
         const projectTitle = formData.get("projectTitle");
-        const newProject = createProject(projectTitle);
+        const newProject = new Project(projectTitle);
         projectList.push(newProject);
         updateProjects(projectList);
         projectModal.close();
@@ -133,7 +139,7 @@ export function todoCreation (currentProject) {
         .map(tag => tag.trim())
         .filter(tag => tag !== "");
 
-        const newTodo = createTodo(title, tags, notes, priority);
+        const newTodo = new TodoItem(title, tags, notes, priority);
         currentProject.addTodo(newTodo);
         
         updateTodos(currentProject);
@@ -141,7 +147,11 @@ export function todoCreation (currentProject) {
     })
 }
 
-
+export function getTodoFormData(currentProject) {
+    // This function can be used to populate form data when editing todos
+    // For now, it's a placeholder that can be implemented later
+    console.log("Getting todo form data for project:", currentProject.name);
+}
 
 function clear(parent) {
     while(parent.firstChild) {
