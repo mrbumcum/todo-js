@@ -1,21 +1,6 @@
 import { createTodo } from "./todo";
 
-
-// <div class="todo-item">
-    // <button class="toggleComplete">+</button>
-    // <div class="todo-information">
-    //     <div class="todo-title"></div>
-    //     <div class="todo-notes"></div>
-    //     <div class="todo-tags"></div>
-    //     <div class="todo-date"></div>
-    //     <div class="todo-misc">
-    //         <div id="addDate"></div>
-    //         <div id="addTag"></div>
-    //     </div>
-    // </div>
-// </div>
-
-export function displayTodoItems() {
+export function updateTodos(currentProject) {
     const todoContainer = document.querySelector('.todo-container');
     clear(todoContainer);
 
@@ -71,7 +56,7 @@ export function displayTodoItems() {
 // </div>
 
 
-export function displayProjects(projectList) {
+export function updateProjects(projectList) {
     const projectContainer = document.querySelector('.project-container');
     clear(projectContainer);
 
@@ -88,6 +73,10 @@ export function displayProjectCreation() {
     addProjectBtn.addEventListener("click", function(event) {
         projectModal.showModal();
     })
+}
+
+export function projectCreation() {
+
 }
 
 export function displayTodoCreation() {
@@ -108,7 +97,11 @@ export function closeTodoCreation() {
     })
 }
 
-export function getTodoFormData() {
+export function todoCreation() {
+    
+}
+
+export function getTodoFormData(currentProject) {
     const form = document.getElementById("todoForm");
 
     form.addEventListener("submit", function(event){
@@ -131,7 +124,7 @@ export function getTodoFormData() {
         currentProject.addTodo(newTodo);
         
         closeTodoCreation();
-        displayTodoItems(currentProject);
+        updateTodos(currentProject);
     })
 }
 

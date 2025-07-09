@@ -1,19 +1,23 @@
-import { displayTodoItems, displayProjects, displayProjectCreation, displayTodoCreation, closeTodoCreation, getTodoFormData } from "./dom";
+import { updateTodos, updateProjects, displayProjectCreation, displayTodoCreation, closeTodoCreation, getTodoFormData } from "./dom";
 
 
 let projectList = ["Inbox"]
 let currentProject = "Inbox"
 
+// Need to address the issue of not getting latest values for currentProject later
 document.addEventListener('DOMContentLoaded', () => {
-    displayTodoItems();
+    updateTodos(currentProject);
     displayProjectCreation();
     displayTodoCreation();
     closeTodoCreation();
-    displayProjects();
-    getTodoFormData();
+    updateProjects();
+    getTodoFormData(currentProject);
 })
 
-
+function switchProject (newProject) {
+    currentProject = newProject
+    updateTodos();
+}
 
 
 
