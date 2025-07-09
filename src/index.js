@@ -1,6 +1,5 @@
 import { updateTodos, updateProjects, openProjectCreation, openTodoCreation, closeTodoCreation, getTodoFormData } from "./dom";
 
-
 let projectList = ["Inbox"]
 let currentProject = "Inbox"
 
@@ -11,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openTodoCreation();
     closeTodoCreation();
     updateProjects();
-    getTodoFormData(currentProject);
-})
+    getTodoFormData(currentProject); })
 
 function switchProject (newProject) {
     currentProject = newProject
