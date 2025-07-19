@@ -1,5 +1,14 @@
+import { format, parseISO, isDate, isPast, isExists, isFuture,isValid } from "date-fns";
+
 export class Todo {
-    constructor(title, desc = "", priorty = "medium", notes = "", project = "default" ) {
+    constructor(
+        title,
+        desc = "",
+        priority = "medium",
+        notes = "",
+        project = "default",
+        dueDate = format(new Date(), 'yyyy-MM-dd')
+    ) {
         this.title = title;
         this.desc = desc;
         this.priority = priority;
@@ -7,6 +16,7 @@ export class Todo {
         this.completed = false;
         this.id = crypto.randomUUID();
         this.project = project;
+        this.dueDate = dueDate;
     }
 
     get title() {
@@ -33,6 +43,10 @@ export class Todo {
         return this.project;
     }
 
+    get dueDate() {
+        return this.dueDate;
+    }
+
     set title(title) {
         this.title = title;
     }
@@ -55,6 +69,22 @@ export class Todo {
 
     set project(project) {
         this.project = project;
+    }
+
+    set dueDate(dueDate) {
+        parsedDate = parseISO(dueDate)
+
+        if (
+            !parsedDate.isExists ||
+            !parsedDate.isValid ||
+            parsedDate.isPast
+        ) {
+            parsedDate = format(new Date(), 'yyyy-MM-dd');
+        }
+
+        else {
+            this.dueDate = parsedDate;
+        }
     }
 }
 
