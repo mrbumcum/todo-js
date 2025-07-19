@@ -75,9 +75,9 @@ export class Todo {
         parsedDate = parseISO(dueDate)
 
         if (
-            !parsedDate.isExists ||
-            !parsedDate.isValid ||
-            parsedDate.isPast
+            !parsedDate.isExists() ||
+            !parsedDate.isValid() ||
+            parsedDate.isPast()
         ) {
             parsedDate = format(new Date(), 'yyyy-MM-dd');
         }
