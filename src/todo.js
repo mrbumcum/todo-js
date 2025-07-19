@@ -1,4 +1,4 @@
-class Todo {
+export class Todo {
     constructor(title, desc = "", priorty = "medium", notes = "", project = "default" ) {
         this.title = title;
         this.desc = desc;
