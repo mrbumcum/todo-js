@@ -2,7 +2,7 @@ import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 
 function clear(domElement) {
-    while ( domElement.hasChildNodes() ) {
+    while (domElement.hasChildNodes()) {
         domElement.removeChild(domElement.firstChild);
     }
 }
@@ -18,11 +18,18 @@ export function closeAddProjectModal() {
 }
 
 export function getProjectInformation() {
-    return null;
+    const projectForm = document.getElementById("projectForm");
+    const formData = new FormData(projectForm);
+    const title = formData.get("project-title");
+    const desc = formData.get("project-desc");
+    return { title, desc };
 };
 
-export function createProject() {
-    return null;
+export function createProject(formData) {
+    const { title, desc } = formData;
+
+    const project = new Project(title, desc);
+    return project;
 };
 
 export function deleteProject() {
@@ -51,16 +58,31 @@ export function closeAddTodoModal() {
 
 
 export function getTodoInformation() {
-    return null;
+    const todoForm = document.getElementById("todoForm");
+    const formData = new FormData(todoForm);
+    
+    // Extract all form values, some might be empty
+    const title = formData.get("todo-title") || "";
+    const desc = formData.get("desc-title") || "";
+    const notes = formData.get("todo-notes") || "";
+    const priority = formData.get("todo-priority") || "medium";
+    const project = formData.get("todo-project-dropdown") || "default";
+    const dueDate = formData.get("todo-dueDate") || "";
+    
+    return { title, desc, notes, priority, project, dueDate };
+}
+
+export function createTodo(todoData) {
+    const { title, desc, notes, priority, project, dueDate } = todoData;
+    const todo = new Todo(title, desc, priority, notes, project, dueDate);
+    return todo;
 }
 
 export function updateTodoList(currentProject) {
     return null;
 }
 
-export function createTodo() {
-    return null;
-}
+
 
 export function deleteTodo() {
     return null;
