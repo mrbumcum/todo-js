@@ -25,15 +25,57 @@ export function getProjectInformation() {
     return { title, desc };
 };
 
-export function createProject(formData) {
+export function createProject(formData, projectList) {
     const { title, desc } = formData;
-
     const project = new Project(title, desc);
-    return project;
+    projectList.push(project);
+
+    const projectObjectContainer = document.getElementById("project-container");
+    const projectObject = document.createElement("div");
+    projectObject.classList.add("project-object");
+    projectObjectContainer.appendChild(projectObject);
+    
+    const projectObjectRow1 = document.createElement("div");
+    projectObjectRow1.classList.add("project-object-row1");
+    projectObject.appendChild(projectObjectRow1);
+    
+    const projectObjectRow2 = document.createElement("div");
+    projectObjectRow2.classList.add("project-object-row2");
+    projectObject.appendChild(projectObjectRow2);
+
+
+    const projectName = document.createElement("p");
+    projectName.classList.add("project-name");
+    projectObjectRow1.appendChild(projectName);
+    projectName.textContent = project.title;
+
+    const projectObjectButtons = document.createElement("div");
+    projectObjectButtons.classList.add("project-object-buttons");
+    projectObjectRow1.appendChild(projectObjectButtons);
+
+    const editProjectBtn = document.createElement("button");
+    editProjectBtn.setAttribute("id", "editProjectBtn");
+    editProjectBtn.setAttribute("id", project.id);
+    editProjectBtn.setAttribute("type", "button");
+    editProjectBtn.textContent = "Edit";
+    projectObjectButtons.appendChild(editProjectBtn);
+
+    const deleteProjectBtn = document.createElement("button");
+    deleteProjectBtn.setAttribute("id", "deleteProjectBtn");
+    deleteProjectBtn.setAttribute("id", project.id);
+    deleteProjectBtn.setAttribute("type", "button");
+    deleteProjectBtn.textContent = "Delete";
+    projectObjectButtons.appendChild(deleteProjectBtn);
+
+    const projectDescription = document.createElement("p");
+    projectDescription.classList.add("project-description");
+    projectObjectRow2.appendChild(projectDescription);
+    projectDescription.textContent = project.desc;
 };
 
-export function deleteProject() {
-    return null;
+export function deleteProject(projectList) {
+
+
 }
 
 export function updateProjectList(currentProject) {

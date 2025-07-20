@@ -21,7 +21,10 @@
                     <!-- TODO: Dynamically create in JS -->
                     <div class="project-object">
                         <p class="project-name"></p>
-                        <div class="todo-count"></div>
+                        <div class="project-object-buttons">
+                            <button type="button" id="editProjectBtn">Edit</button>
+                            <button type="button" id="deleteProjectBtn">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,6 +41,8 @@
                         <div class="todo-row1">
                             <input type="checkbox" name="toggleComplete" id="toggleComplete">
                             <div id="todo-name"></div>
+                            <button type="button" id="deleteTodoBtn">Delete</button>
+                            <button type="button" id="editTodoBtn">Edit</button>
                         </div>
                         <div class="todo-row2">
                             <div id="todoDate"></div>
