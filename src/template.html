@@ -49,7 +49,7 @@
             <div class="modal" id="todoModal">
                 <form action="" method="get" id="todoForm">
                     <label for="todo-title">Title:</label>
-                    <input type="text" name="todo-title" id="todo-title">
+                    <input type="text" name="todo-title" id="todo-title" required>
 
                     <label for="desc-title">Description:</label>
                     <input type="text" name="desc-title" id="desc-title">
@@ -58,9 +58,9 @@
                     <input type="text" name="todo-notes" id="todo-notes">
 
                     <label for="todo-priority">Priority:</label>
-                    <select name="todo-priority" id="todo-priority">
+                    <select name="todo-priority" id="todo-priority" required>
                         <option value="low">low</option>
-                        <option value="medium">medium</option>
+                        <option value="medium" selected>medium</option>
                         <option value="high">high</option>
                     </select>
 
@@ -69,7 +69,7 @@
 
                     <label for="todo-project-dropdown">Project:</label>
                     <!-- TODO: DYNAMICALLY FILL THE DROPDOWN -->
-                    <select name="todo-project-dropdown" id="todo-project-dropdown">
+                    <select name="todo-project-dropdown" id="todo-project-dropdown" required>
                         <!-- Fill with dynamically created items -->
                     </select>
                 </form>
