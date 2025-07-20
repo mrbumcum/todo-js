@@ -29,7 +29,7 @@
             <div class="right-column">
                 <div class="header-container">
                     <!-- -- TODO: Dynamically fill currentProjectIndicator  -->
-                    <div class="header-text" id="currnet-project-indicator"></div>
+                    <div class="header-text" id="current-project-indicator"></div>
                     <button type="button" id="addTodoBtn">+</button>
                 </div>
 
@@ -47,7 +47,7 @@
             </div>
 
             <div class="modal" id="todoModal">
-                <form action="" method="get">
+                <form action="" method="get" id="todoForm">
                     <label for="todo-title">Title:</label>
                     <input type="text" name="todo-title" id="todo-title">
 
@@ -58,7 +58,7 @@
                     <input type="text" name="todo-notes" id="todo-notes">
 
                     <label for="todo-priority">Priority:</label>
-                    <select name="todo-priority" id="todo-prioity">
+                    <select name="todo-priority" id="todo-priority">
                         <option value="low">low</option>
                         <option value="medium">medium</option>
                         <option value="high">high</option>
@@ -74,14 +74,14 @@
                     </select>
                 </form>
 
-                <div class="modal-buttons"></div>
+                <div class="modal-buttons">
                     <button type="submit" id="submitTodoBtn">Submit</button>
                     <button type="button" id="cancelTodoBtn">Cancel</button>
                 </div>
             </div>
 
-            <div class="modal" id="projectModal"></div>
-                <form action="" method="get">
+            <div class="modal" id="projectModal">
+                <form action="" method="get" id="projectForm">
                     <label for="project-title">Title:</label>
                     <input type="text" name="project-title" id="project-title">
 
@@ -94,7 +94,6 @@
                     <button type="button" id="cancelProjectBtn">Cancel</button>
                 </div>
             </div>
-
 
             
         </div>
