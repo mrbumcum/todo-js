@@ -45,6 +45,41 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal" id="todoModal">
+                <form action="" method="get">
+                    <label for="todo-title">Title:</label>
+                    <input type="text" name="todo-title" id="todo-title">
+
+                    <label for="desc-title">Description:</label>
+                    <input type="text" name="desc-title" id="desc-title">
+
+                    <label for="todo-notes">Notes:</label>
+                    <input type="text" name="todo-notes" id="todo-notes">
+
+                    <label for="todo-priority">Priority:</label>
+                    <select name="todo-priority" id="todo-prioity">
+                        <option value="low">low</option>
+                        <option value="medium">medium</option>
+                        <option value="high">high</option>
+                    </select>
+
+                    <label for="todo-dueDate">Due Date:</label>
+                    <input type="date" name="todo-dueDate" id="todo-dueDate">
+
+                    <label for="todo-project-dropdown">Project:</label>
+                    <!-- TODO: DYNAMICALLY FILL THE DROPDOWN -->
+                    <select name="todo-project-dropdown" id="todo-project-dropdown">
+
+                    </select>
+                </form>
+
+                <button type="submit"></button>
+            </div>
+
+
+
+            
         </div>
 </body>
 </html>
