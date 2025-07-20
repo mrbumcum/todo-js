@@ -56,7 +56,9 @@ export class Todo {
     }
 
     set priority(priority) {
-        this.priority = priority;
+        if (priority == 'low' || priority == 'medium' || priority == 'high') {
+            this.priority = priority;
+        }
     }
 
     set notes(notes) {
@@ -72,12 +74,12 @@ export class Todo {
     }
 
     set dueDate(dueDate) {
-        parsedDate = parseISO(dueDate)
+        let parsedDate = parseISO(dueDate)
 
         if (
-            !parsedDate.isExists() ||
-            !parsedDate.isValid() ||
-            parsedDate.isPast()
+            !isExists(parsedDate) ||
+            !isValid(parsedDate) ||
+            isPast(parsedDate)
         ) {
             parsedDate = format(new Date(), 'yyyy-MM-dd');
         }
