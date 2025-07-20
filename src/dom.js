@@ -7,9 +7,15 @@ function clear(domElement) {
     }
 }
 // TODO: Add CRUD for TODO
-export function toggleProjectMenu() {
-    return null;
+export function openAddProjectModal() {
+    const projectModal = document.getElementById("projectModal")
+    projectModal.style.display = "block"
 };
+
+export function closeAddProjectModal() {
+    const projectModal = document.getElementById("projectModal")
+    projectModal.style.display = "none"
+}
 
 export function getProjectInformation() {
     return null;
@@ -27,11 +33,22 @@ export function updateProjectList(currentProject) {
     return null;
 };
 
-// TODO: Add CRUD for PROJECT obj
-
-export function toggleCreateTodoMenu() {
+function populateProjectDropdown(projectList) {
     return null;
 }
+
+// TODO: Add CRUD for PROJECT obj
+
+export function openAddTodoModal() {
+    const todoModal = document.getElementById("todoModal");
+    todoModal.style.display = "block"
+}
+
+export function closeAddTodoModal() {
+    const todoModal = document.getElementById("todoModal");
+    todoModal.style.display = "none"
+}
+
 
 export function getTodoInformation() {
     return null;
