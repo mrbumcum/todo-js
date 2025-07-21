@@ -108,6 +108,9 @@ export function updateProjectList(projectList) {
         editProjectBtn.setAttribute("type", "button");
         editProjectBtn.textContent = "Edit";
         projectObjectButtons.appendChild(editProjectBtn);
+        editProjectBtn.addEventListener("click", (e) => {
+            editProject(e, projectList);
+        });
 
         const deleteProjectBtn = document.createElement("button");
         deleteProjectBtn.setAttribute("id", "deleteProjectBtn");
@@ -115,6 +118,9 @@ export function updateProjectList(projectList) {
         deleteProjectBtn.setAttribute("type", "button");
         deleteProjectBtn.textContent = "Delete";
         projectObjectButtons.appendChild(deleteProjectBtn);
+        deleteProjectBtn.addEventListener("click", (e) => {
+            deleteProject(e, projectList);
+        });
 
         const projectDescription = document.createElement("p");
         projectDescription.classList.add("project-description");
@@ -175,7 +181,7 @@ export function createTodo(todoData, projectList) {
     closeAddTodoModal();
 }
 
-export function updateTodoList(currentProject) {
+export function updateTodoList(currentProject, projectList) {
     const todoContainer = document.getElementById("todo-container");
     clear(todoContainer);
 
@@ -208,6 +214,9 @@ export function updateTodoList(currentProject) {
         deleteTodoBtn.setAttribute("type", "button");
         deleteTodoBtn.textContent = "Delete";
         todoObjectButtons.appendChild(deleteTodoBtn);
+        deleteTodoBtn.addEventListener("click", (e) => {
+            deleteTodo(e, projectList);
+        });
 
         const editTodoBtn = document.createElement("button");
         editTodoBtn.setAttribute("id", "editTodoBtn");
@@ -215,6 +224,9 @@ export function updateTodoList(currentProject) {
         editTodoBtn.setAttribute("type", "button");
         editTodoBtn.textContent = "Edit";
         todoObjectButtons.appendChild(editTodoBtn);
+        editTodoBtn.addEventListener("click", (e) => {
+            editTodo(e, projectList);
+        });
 
         const todoDate = document.createElement("p");
         todoDate.classList.add("todo-date");
@@ -223,6 +235,37 @@ export function updateTodoList(currentProject) {
     })
 }
 
+function editTodo(e, projectList) {
+    openAddTodoModal(projectList);
+    const todoForm = document.getElementById("todoForm");
+    const todoId = e.target.id;
+    const todo = projectList.find(project => todo.id === todoId);
+
+    const fieldMap = {
+        "todo-title": "title",
+        "todo-desc": "desc",
+        "todo-notes": "notes",
+        "todo-priority": "priority",
+        "todo-dueDate": "dueDate"
+    };
+
+    ["todo-title", "todo-desc", "todo-notes", "todo-priority", "todo-dueDate"].forEach(input => {
+        const inputField = todoForm.querySelector(`#${input}`);
+        inputField.value = todo[fieldMap[input]];
+    });
+
+    const submitTodoBtn = document.getElementById("submitTodoBtn");
+    submitTodoBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const deleteEvent = { target: { id: todoId } };
+        deleteTodo(deleteEvent, projectList);
+
+        // Add the new/updated todo
+        const formData = getTodoInformation();
+        createTodo(formData, projectList);
+        closeAddTodoModal();
+    });
+}
 
 
 export function deleteTodo(e, projectList) {
