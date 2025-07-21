@@ -138,14 +138,16 @@ function populateProjectDropdown(projectList) {
 
 // TODO: Add CRUD for PROJECT obj
 
-export function openAddTodoModal() {
+export function openAddTodoModal(projectList) {
     const todoModal = document.getElementById("todoModal");
     todoModal.style.display = "block"
+    populateProjectDropdown(projectList);
 }
 
 export function closeAddTodoModal() {
     const todoModal = document.getElementById("todoModal");
     todoModal.style.display = "none"
+    todoModal.reset();
 }
 
 
@@ -164,20 +166,74 @@ export function getTodoInformation() {
     return { title, desc, notes, priority, project, dueDate };
 }
 
-export function createTodo(todoData) {
+export function createTodo(todoData, projectList) {
     const { title, desc, notes, priority, project, dueDate } = todoData;
     const todo = new Todo(title, desc, priority, notes, project, dueDate);
-    return todo;
+    const currentProject = projectList.find(project => todo.project === project.title);
+    currentProject.todos.push(todo);
+    updateTodoList(currentProject);
+    closeAddTodoModal();
 }
 
 export function updateTodoList(currentProject) {
-    return null;
+    const todoContainer = document.getElementById("todo-container");
+    clear(todoContainer);
+
+    currentProject.todos.forEach(todo => {
+        const todoObject = document.createElement("div");
+        todoObject.classList.add("todo-object");
+        todoObject.setAttribute("id", todo.id);
+        todoContainer.appendChild(todoObject);
+
+        const todoObjectRow1 = document.createElement("div");
+        todoObjectRow1.classList.add("todo-object-row1");
+        todoObject.appendChild(todoObjectRow1);
+
+        const todoObjectRow2 = document.createElement("div");
+        todoObjectRow2.classList.add("todo-object-row2");
+        todoObject.appendChild(todoObjectRow2);
+
+        const todoName = document.createElement("p");
+        todoName.classList.add("todo-name");
+        todoObjectRow1.appendChild(todoName);
+        todoName.textContent = todo.title;
+
+        const todoObjectButtons = document.createElement("div");
+        todoObjectButtons.classList.add("todo-object-buttons");
+        todoObjectRow1.appendChild(todoObjectButtons);
+
+        const deleteTodoBtn = document.createElement("button");
+        deleteTodoBtn.setAttribute("id", "deleteTodoBtn");
+        deleteTodoBtn.setAttribute("id", todo.id);
+        deleteTodoBtn.setAttribute("type", "button");
+        deleteTodoBtn.textContent = "Delete";
+        todoObjectButtons.appendChild(deleteTodoBtn);
+
+        const editTodoBtn = document.createElement("button");
+        editTodoBtn.setAttribute("id", "editTodoBtn");
+        editTodoBtn.setAttribute("id", todo.id);
+        editTodoBtn.setAttribute("type", "button");
+        editTodoBtn.textContent = "Edit";
+        todoObjectButtons.appendChild(editTodoBtn);
+
+        const todoDate = document.createElement("p");
+        todoDate.classList.add("todo-date");
+        todoObjectRow2.appendChild(todoDate);
+        todoDate.textContent = todo.dueDate;
+    })
 }
 
 
 
-export function deleteTodo() {
-    return null;
+export function deleteTodo(e, projectList) {
+    const todoProject = e.target.project;
+    const parentProject = projectList.find(project => project.title === todoProject);
+    const todoId = e.target.id;
+    const todo = parentProject.todos.find(todo => todo.id === todoId);
+    parentProject.todos.splice(parentProject.todos.indexOf(todo), 1);
+    const todoObject = document.getElementById(todoId);
+    todoObject.remove();
+    updateTodoList(parentProject);
 }
 
 
