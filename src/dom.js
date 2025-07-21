@@ -1,9 +1,9 @@
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 
-function clear(domElement) {
-    while (domElement.hasChildNodes()) {
-        domElement.removeChild(domElement.firstChild);
+function clear(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
 }
 // TODO: Add CRUD for TODO
@@ -34,15 +34,14 @@ export function createProject(formData, projectList) {
     const projectObject = document.createElement("div");
     projectObject.classList.add("project-object");
     projectObjectContainer.appendChild(projectObject);
-    
+
     const projectObjectRow1 = document.createElement("div");
     projectObjectRow1.classList.add("project-object-row1");
     projectObject.appendChild(projectObjectRow1);
-    
+
     const projectObjectRow2 = document.createElement("div");
     projectObjectRow2.classList.add("project-object-row2");
     projectObject.appendChild(projectObjectRow2);
-
 
     const projectName = document.createElement("p");
     projectName.classList.add("project-name");
@@ -73,13 +72,21 @@ export function createProject(formData, projectList) {
     projectDescription.textContent = project.desc;
 };
 
-export function deleteProject(projectList) {
+function deleteProject(e, projectList) {
+    const projectId = e.target.id;
+    const project = projectList.find(project => project.id === projectId);
+    projectList.splice(projectList.indexOf(project), 1);
+    const projectObject = document.getElementById(projectId);
+    projectObject.remove();
+}
 
-
+function editProject(e, projectList) {
+    return null;
 }
 
 export function updateProjectList(currentProject) {
-    return null;
+    const projectContainer = document.getElementById("project-container");
+    clear(projectContainer);
 };
 
 function populateProjectDropdown(projectList) {
@@ -102,7 +109,7 @@ export function closeAddTodoModal() {
 export function getTodoInformation() {
     const todoForm = document.getElementById("todoForm");
     const formData = new FormData(todoForm);
-    
+
     // Extract all form values, some might be empty
     const title = formData.get("todo-title") || "";
     const desc = formData.get("desc-title") || "";
@@ -110,7 +117,7 @@ export function getTodoInformation() {
     const priority = formData.get("todo-priority") || "medium";
     const project = formData.get("todo-project-dropdown") || "default";
     const dueDate = formData.get("todo-dueDate") || "";
-    
+
     return { title, desc, notes, priority, project, dueDate };
 }
 
