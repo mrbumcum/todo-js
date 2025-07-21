@@ -74,6 +74,13 @@ function editProject(e, projectList) {
     });
 }
 
+function toggleProject(e, projectList) {
+    const projectId = e.target.id;
+    const project = projectList.find(project => project.id === projectId);
+    window.currentProject = project;
+    updateTodoList(project, projectList);
+}
+
 export function updateProjectList(projectList) {
     const projectContainer = document.getElementById("project-container");
     clear(projectContainer);
@@ -102,31 +109,33 @@ export function updateProjectList(projectList) {
         projectObjectButtons.classList.add("project-object-buttons");
         projectObjectRow1.appendChild(projectObjectButtons);
 
-        const editProjectBtn = document.createElement("button");
-        editProjectBtn.setAttribute("id", "editProjectBtn");
-        editProjectBtn.setAttribute("id", project.id);
-        editProjectBtn.setAttribute("type", "button");
-        editProjectBtn.textContent = "Edit";
-        projectObjectButtons.appendChild(editProjectBtn);
-        editProjectBtn.addEventListener("click", (e) => {
-            editProject(e, projectList);
-        });
-
-        const deleteProjectBtn = document.createElement("button");
-        deleteProjectBtn.setAttribute("id", "deleteProjectBtn");
-        deleteProjectBtn.setAttribute("id", project.id);
-        deleteProjectBtn.setAttribute("type", "button");
-        deleteProjectBtn.textContent = "Delete";
-        projectObjectButtons.appendChild(deleteProjectBtn);
-        deleteProjectBtn.addEventListener("click", (e) => {
-            deleteProject(e, projectList);
-        });
-
         const projectDescription = document.createElement("p");
         projectDescription.classList.add("project-description");
         projectObjectRow2.appendChild(projectDescription);
         projectDescription.textContent = project.desc;
-    })
+
+        if (project.title != "Default") {
+            const editProjectBtn = document.createElement("button");
+            editProjectBtn.setAttribute("id", "editProjectBtn");
+            editProjectBtn.setAttribute("id", project.id);
+            editProjectBtn.setAttribute("type", "button");
+            editProjectBtn.textContent = "Edit";
+            projectObjectButtons.appendChild(editProjectBtn);
+            editProjectBtn.addEventListener("click", (e) => {
+                editProject(e, projectList);
+            });
+
+            const deleteProjectBtn = document.createElement("button");
+            deleteProjectBtn.setAttribute("id", "deleteProjectBtn");
+            deleteProjectBtn.setAttribute("id", project.id);
+            deleteProjectBtn.setAttribute("type", "button");
+            deleteProjectBtn.textContent = "Delete";
+            projectObjectButtons.appendChild(deleteProjectBtn);
+            deleteProjectBtn.addEventListener("click", (e) => {
+                deleteProject(e, projectList);
+            });
+        }
+    });
 };
 
 function populateProjectDropdown(projectList) {
@@ -182,10 +191,13 @@ export function createTodo(todoData, projectList) {
 }
 
 export function updateTodoList(currentProject, projectList) {
+    console.log(currentProject);
+    console.log(projectList);
+    console.log(currentProject.todos.length);
     const todoContainer = document.getElementById("todo-container");
     clear(todoContainer);
 
-    currentProject.todos.forEach(todo => {
+    currentProject.todos.length > 0 && currentProject.todos.forEach(todo => {
         const todoObject = document.createElement("div");
         todoObject.classList.add("todo-object");
         todoObject.setAttribute("id", todo.id);

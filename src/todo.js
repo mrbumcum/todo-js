@@ -1,4 +1,4 @@
-import { format, parseISO, isDate, isPast, isExists, isFuture,isValid } from "date-fns";
+import { format, parseISO, isPast, isExists, isValid } from "date-fns";
 
 export class Todo {
     constructor(

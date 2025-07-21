@@ -55,3 +55,11 @@
   #root, #__next {
     isolation: isolate;
   }
+
+#projectModal {
+  display: none;
+}
+
+#todoModal {
+  display: none;
+}
