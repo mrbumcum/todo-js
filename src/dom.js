@@ -15,6 +15,7 @@ export function openAddProjectModal() {
 export function closeAddProjectModal() {
     const projectModal = document.getElementById("projectModal")
     projectModal.style.display = "none"
+    projectModal.reset();
 }
 
 export function getProjectInformation() {
@@ -44,7 +45,33 @@ function deleteProject(e, projectList) {
 }
 
 function editProject(e, projectList) {
-    return null;
+    openAddProjectModal();
+    const projectForm = document.getElementById("projectForm");
+    const projectId = e.target.id;
+    const project = projectList.find(project => project.id === projectId);
+
+    const fieldMap = {
+        "project-title": "title",
+        "project-desc": "desc"
+    };
+
+    ["project-title", "project-desc"].forEach(input => {
+        const inputField = projectForm.querySelector(`#${input}`);
+        inputField.value = project[fieldMap[input]];
+    });
+
+    const submitProjectBtn = document.getElementById("submitProjectBtn");
+    submitProjectBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const deleteEvent = { target: { id: projectId } };
+        deleteProject(deleteEvent, projectList);
+
+        // Add the new/updated project
+        const formData = getProjectInformation();
+        createProject(formData, projectList);
+        closeAddProjectModal();
+    });
 }
 
 export function updateProjectList(projectList) {
