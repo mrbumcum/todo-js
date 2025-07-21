@@ -31,3 +31,26 @@ addTodoBtn.addEventListener("click", () => {
     openAddTodoModal(projectList);
 });
 
+const submitProjectBtn = document.getElementById("submitProjectBtn");
+submitProjectBtn.addEventListener("click", () => {
+    const projectData = getProjectInformation();
+    createProject(projectData, projectList);
+    closeAddProjectModal();
+});
+
+const submitTodoBtn = document.getElementById("submitTodoBtn");
+submitTodoBtn.addEventListener("click", () => {
+    const todoData = getTodoInformation();
+    createTodo(todoData, projectList);
+    closeAddTodoModal();
+});
+
+const cancelProjectBtn = document.getElementById("cancelProjectBtn");
+cancelProjectBtn.addEventListener("click", () => {
+    closeAddProjectModal();
+});
+
+const cancelTodoBtn = document.getElementById("cancelTodoBtn");
+cancelTodoBtn.addEventListener("click", () => {
+    closeAddTodoModal();
+});

@@ -14,8 +14,9 @@ export function openAddProjectModal() {
 
 export function closeAddProjectModal() {
     const projectModal = document.getElementById("projectModal")
+    const projectForm = document.getElementById("projectForm");
     projectModal.style.display = "none"
-    projectModal.reset();
+    projectForm.reset();
 }
 
 export function getProjectInformation() {
@@ -161,8 +162,9 @@ export function openAddTodoModal(projectList) {
 
 export function closeAddTodoModal() {
     const todoModal = document.getElementById("todoModal");
+    const todoForm = document.getElementById("todoForm");
     todoModal.style.display = "none"
-    todoModal.reset();
+    todoForm.reset();
 }
 
 
