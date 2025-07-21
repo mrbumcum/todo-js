@@ -9,68 +9,68 @@ export class Todo {
         project = "default",
         dueDate = format(new Date(), 'yyyy-MM-dd')
     ) {
-        this.title = title;
-        this.desc = desc;
-        this.priority = priority;
-        this.notes = notes;
-        this.completed = false;
-        this.id = crypto.randomUUID();
-        this.project = project;
-        this.dueDate = dueDate;
+        this._title = title;
+        this._desc = desc;
+        this._priority = priority;
+        this._notes = notes;
+        this._completed = false;
+        this._id = crypto.randomUUID();
+        this._project = project;
+        this._dueDate = dueDate;
     }
 
     get title() {
-        return this.title;
+        return this._title;
     }
 
     get desc() {
-        return this.desc;
+        return this._desc;
     }
 
     get priority() {
-        return this.priority;
+        return this._priority;
     }
 
     get notes() {
-        return this.notes;
+        return this._notes;
     }
 
     get id() {
-        return this.id;
+        return this._id;
     }
 
     get project() {
-        return this.project;
+        return this._project;
     }
 
     get dueDate() {
-        return this.dueDate;
+        return this._dueDate;
     }
 
     set title(title) {
-        this.title = title;
+        this._title = title;
     }
 
     set desc(desc) {
-        this.desc = desc;
+        this._desc = desc;
     }
 
     set priority(priority) {
         if (priority == 'low' || priority == 'medium' || priority == 'high') {
-            this.priority = priority;
+            this._priority = priority;
         }
     }
 
     set notes(notes) {
-        this.notes = notes;
+        this._notes = notes;
     }
 
     set id(id) {
-        this.id = id;
+        this._id = id;
     }
 
     set project(project) {
-        this.project = project;
+        this._project = project;
     }
 
     set dueDate(dueDate) {
@@ -81,11 +81,11 @@ export class Todo {
             !isValid(parsedDate) ||
             isPast(parsedDate)
         ) {
-            parsedDate = format(new Date(), 'yyyy-MM-dd');
+            this._dueDate = format(new Date(), 'yyyy-MM-dd');
         }
 
         else {
-            this.dueDate = parsedDate;
+            this._dueDate = parsedDate;
         }
     }
 }
