@@ -97,7 +97,16 @@ export function updateProjectList(projectList) {
 };
 
 function populateProjectDropdown(projectList) {
-    return null;
+    const projectDropdown = document.getElementById("todo-project-dropdown");
+    clear(projectDropdown);
+
+    projectList.forEach(project => {
+        const projectOption = document.createElement("option");
+        projectOption.setAttribute("value", project.id);
+        projectOption.textContent = project.title;
+        projectDropdown.appendChild(projectOption);
+    })
+
 }
 
 // TODO: Add CRUD for PROJECT obj
