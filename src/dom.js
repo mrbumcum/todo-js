@@ -1,6 +1,7 @@
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
 
+
 function clear(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -19,60 +20,52 @@ export function closeAddProjectModal() {
     projectForm.reset();
 }
 
-export function getProjectInformation() {
-    const projectForm = document.getElementById("projectForm");
-    const formData = new FormData(projectForm);
-    const title = formData.get("project-title");
-    const desc = formData.get("project-desc");
-    return { title, desc };
-};
 
-export function createProject(formData, projectList) {
-    const { title, desc } = formData;
-    const project = new Project(title, desc);
-    projectList.push(project);
-
-    updateProjectList(projectList);
-};
-
-function deleteProject(e, projectList) {
+function removeProjectFromList(e, projectList) {
     const projectId = e.target.id;
     const project = projectList.find(project => project.id === projectId);
     projectList.splice(projectList.indexOf(project), 1);
+}
+
+function removeProjectElement(e) {
+    const projectId = e.target.id;
     const projectObject = document.getElementById(projectId);
     projectObject.remove();
+}
+
+function deleteProject(e, projectList) {
+    removeProjectFromList(e, projectList);
+    removeProjectElement(e, projectList);
+    updateProjectList(projectList);
+}
+
+let editingProject = null;
+
+export function handleSubmitProject(e, projectList) {
+    e.preventDefault();
+    const projectForm = document.getElementById("projectForm");
+    const title = projectForm["project-title"].value;
+    const desc = projectForm["project-desc"].value;
+
+    if (editingProject) {
+        editingProject.title = title;
+        editingProject.desc = desc;
+        editingProject = null;
+    } else {
+        const project = new Project(title, desc);
+        projectList.push(project);
+    }
 
     updateProjectList(projectList);
 }
 
-function editProject(e, projectList) {
+export function openEditProjectModal(e, projectList) {
     openAddProjectModal();
+    const project = projectList.find(project => project.id === e.target.id);
     const projectForm = document.getElementById("projectForm");
-    const projectId = e.target.id;
-    const project = projectList.find(project => project.id === projectId);
-
-    const fieldMap = {
-        "project-title": "title",
-        "project-desc": "desc"
-    };
-
-    ["project-title", "project-desc"].forEach(input => {
-        const inputField = projectForm.querySelector(`#${input}`);
-        inputField.value = project[fieldMap[input]];
-    });
-
-    const submitProjectBtn = document.getElementById("submitProjectBtn");
-    submitProjectBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        const deleteEvent = { target: { id: projectId } };
-        deleteProject(deleteEvent, projectList);
-
-        // Add the new/updated project
-        const formData = getProjectInformation();
-        createProject(formData, projectList);
-        closeAddProjectModal();
-    });
+    projectForm["project-title"].value = project.title;
+    projectForm["project-desc"].value = project.desc;
+    editingProject = project;
 }
 
 function toggleProject(e, projectList) {
@@ -271,12 +264,17 @@ function editTodo(e, projectList) {
     const submitTodoBtn = document.getElementById("submitTodoBtn");
     submitTodoBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        const deleteEvent = { target: { id: todoId } };
-        deleteTodo(deleteEvent, projectList);
-
-        // Add the new/updated todo
-        const formData = getTodoInformation();
-        createTodo(formData, projectList);
+        const todoData = new FormData(todoForm);
+        const title = todoData.get("todo-title");
+        const desc = todoData.get("todo-desc");
+        const notes = todoData.get("todo-notes");
+        const priority = todoData.get("todo-priority");
+        const dueDate = todoData.get("todo-dueDate");
+        todo.title = title;
+        todo.desc = desc;
+        todo.notes = notes;
+        todo.priority = priority;
+        todo.dueDate = dueDate;
         closeAddTodoModal();
     });
 }
