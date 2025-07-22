@@ -7,16 +7,24 @@ import {
     openAddTodoModal,
     closeAddTodoModal,
     handleSubmitTodo,
-    updateTodoList
+    updateTodoList,
 } from "./dom.js";
 
 import { Project } from "./project.js";
 
 const defaultProject = new Project("Default", "Default project");
-const currentProject = defaultProject;
+let currentProject = defaultProject;
 const projectList = [defaultProject];
 updateProjectList(projectList);
 updateTodoList(currentProject, projectList);
+
+export function setCurrentProject(project) {
+    currentProject = project;
+}
+
+export function getCurrentProject() {
+    return currentProject;
+}
 
 const addProjectBtn = document.getElementById("addProjectBtn");
 addProjectBtn.addEventListener("click", () => {

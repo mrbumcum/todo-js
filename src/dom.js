@@ -1,6 +1,6 @@
 import { Todo } from "./todo.js";
 import { Project } from "./project.js";
-
+import { setCurrentProject, getCurrentProject } from "./index.js";
 
 function clear(parent) {
     while (parent.firstChild) {
@@ -70,9 +70,23 @@ export function openEditProjectModal(e, projectList) {
 }
 
 function toggleProject(e, projectList) {
-    const projectId = e.target.id;
+    // Get the project element (the .project-object div)
+    const projectDiv = e.currentTarget || e.target.closest('.project-object');
+    if (!projectDiv) return;
+
+    const projectId = projectDiv.id;
     const project = projectList.find(project => project.id === projectId);
-    window.currentProject = project;
+    if (project === getCurrentProject()) return;
+
+    // Remove 'currentProject' class from all
+    document.querySelectorAll('.project-object.currentProject').forEach(el => {
+        el.classList.remove('currentProject');
+    });
+
+    // Add 'currentProject' class to the clicked one
+    projectDiv.classList.add('currentProject');
+
+    setCurrentProject(project);
     updateTodoList(project, projectList);
 }
 
@@ -81,10 +95,23 @@ export function updateProjectList(projectList) {
     clear(projectContainer);
 
     projectList.forEach(project => {
-        const projectObjectContainer = document.getElementById("project-container");
         const projectObject = document.createElement("div");
         projectObject.classList.add("project-object");
         projectObject.setAttribute("id", project.id);
+
+        // Highlight if this is the current project
+        if (getCurrentProject() && project.id === getCurrentProject().id) {
+            projectObject.classList.add("currentProject");
+        }
+
+        // Attach click handler to the project div
+        projectObject.addEventListener("click", (e) => {
+            // Prevent clicks on buttons from triggering project selection
+            if (e.target.closest("button")) return;
+            toggleProject(e, projectList);
+        });
+
+        const projectObjectContainer = document.getElementById("project-container");
         projectObjectContainer.appendChild(projectObject);
 
         const projectObjectRow1 = document.createElement("div");
@@ -144,6 +171,10 @@ function populateProjectDropdown(projectList) {
         projectOption.setAttribute("value", project.id);
         projectOption.textContent = project.title;
         projectDropdown.appendChild(projectOption);
+        
+        if (project.id === getCurrentProject().id) {
+            projectOption.setAttribute("selected", "selected");
+        }
     })
 
 }
@@ -233,9 +264,6 @@ export function handleSubmitTodo(e, currentProject, projectList) {
 }
 
 export function updateTodoList(currentProject, projectList) {
-    console.log(currentProject);
-    console.log(projectList);
-    console.log(currentProject.todos.length);
     const todoContainer = document.getElementById("todo-container");
     clear(todoContainer);
 
