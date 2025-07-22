@@ -2,15 +2,12 @@ import "./styles.css";
 import {
     openAddProjectModal,
     closeAddProjectModal,
-    getProjectInformation,
-    createProject,
+    handleSubmitProject,
     updateProjectList,
     openAddTodoModal,
     closeAddTodoModal,
-    getTodoInformation,
-    createTodo,
-    updateTodoList,
-    deleteTodo
+    handleSubmitTodo,
+    updateTodoList
 } from "./dom.js";
 
 import { Project } from "./project.js";
@@ -19,10 +16,11 @@ const defaultProject = new Project("Default", "Default project");
 const currentProject = defaultProject;
 const projectList = [defaultProject];
 updateProjectList(projectList);
-updateTodoList(currentProject);
+updateTodoList(currentProject, projectList);
 
 const addProjectBtn = document.getElementById("addProjectBtn");
 addProjectBtn.addEventListener("click", () => {
+    console.log("add project btn clicked");
     openAddProjectModal();
 });
 
@@ -32,17 +30,13 @@ addTodoBtn.addEventListener("click", () => {
 });
 
 const submitProjectBtn = document.getElementById("submitProjectBtn");
-submitProjectBtn.addEventListener("click", () => {
-    const projectData = getProjectInformation();
-    createProject(projectData, projectList);
-    closeAddProjectModal();
+submitProjectBtn.addEventListener("click", (e) => {
+    handleSubmitProject(e, projectList);
 });
 
 const submitTodoBtn = document.getElementById("submitTodoBtn");
-submitTodoBtn.addEventListener("click", () => {
-    const todoData = getTodoInformation();
-    createTodo(todoData, projectList);
-    closeAddTodoModal();
+submitTodoBtn.addEventListener("click", (e) => {
+    handleSubmitTodo(e, currentProject, projectList);
 });
 
 const cancelProjectBtn = document.getElementById("cancelProjectBtn");

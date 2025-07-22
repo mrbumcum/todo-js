@@ -33,7 +33,7 @@ function removeProjectElement(e) {
     projectObject.remove();
 }
 
-function deleteProject(e, projectList) {
+export function deleteProject(e, projectList) {
     removeProjectFromList(e, projectList);
     removeProjectElement(e, projectList);
     updateProjectList(projectList);
@@ -57,6 +57,7 @@ export function handleSubmitProject(e, projectList) {
     }
 
     updateProjectList(projectList);
+    closeAddProjectModal();
 }
 
 export function openEditProjectModal(e, projectList) {
@@ -116,8 +117,10 @@ export function updateProjectList(projectList) {
             editProjectBtn.textContent = "Edit";
             projectObjectButtons.appendChild(editProjectBtn);
             editProjectBtn.addEventListener("click", (e) => {
-                editProject(e, projectList);
+                console.log("edit project btn clicked");
+                openEditProjectModal(e, projectList);
             });
+            
 
             const deleteProjectBtn = document.createElement("button");
             deleteProjectBtn.setAttribute("id", "deleteProjectBtn");
@@ -176,13 +179,57 @@ export function getTodoInformation() {
     return { title, desc, notes, priority, project, dueDate };
 }
 
-export function createTodo(todoData, projectList) {
-    const { title, desc, notes, priority, project, dueDate } = todoData;
-    const todo = new Todo(title, desc, priority, notes, project, dueDate);
-    const currentProject = projectList.find(project => todo.project === project.title);
-    currentProject.todos.push(todo);
-    updateTodoList(currentProject);
-    closeAddTodoModal();
+function addTodoToList(project, todo) {
+    console.log(project);
+    console.log(todo);
+    project.todos.push(todo);
+}
+
+let editingTodo = null;
+
+export function openEditTodoModal(e, projectList) {
+    openAddTodoModal(projectList);
+    const todoId = e.target.id;
+    // Find the project that contains the todo
+    const parentProject = projectList.find(project =>
+        project.todos.some(todo => todo.id === todoId)
+    );
+
+    // Find the todo within that project
+    const todo = parentProject ? parentProject.todos.find(todo => todo.id === todoId) : undefined;
+    const todoForm = document.getElementById("todoForm");
+    todoForm["todo-title"].value = todo.title;
+    todoForm["desc-title"].value = todo.desc;
+    todoForm["todo-notes"].value = todo.notes;
+    todoForm["todo-priority"].value = todo.priority;
+    todoForm["todo-dueDate"].value = todo.dueDate;
+    editingTodo = todo;
+}
+
+export function handleSubmitTodo(e, currentProject, projectList) {
+    e.preventDefault();
+    const todoForm = document.getElementById("todoForm");
+    const title = todoForm["todo-title"].value;
+    const desc = todoForm["desc-title"].value;
+    const notes = todoForm["todo-notes"].value;
+    const priority = todoForm["todo-priority"].value;
+    const project = todoForm["todo-project-dropdown"].value;
+    const dueDate = todoForm["todo-dueDate"].value;
+    
+    if (editingTodo) {
+        editingTodo.title = title;
+        editingTodo.desc = desc;
+        editingTodo.notes = notes;
+        editingTodo.priority = priority;
+        editingTodo.dueDate = dueDate;
+    } else {
+        const todo = new Todo(title, desc, priority, notes, project, dueDate);
+        const selectedProject = projectList.find(project => project.id === todo.project);
+
+        addTodoToList(selectedProject, todo);
+        updateTodoList(currentProject, projectList);
+        closeAddTodoModal();
+    }
 }
 
 export function updateTodoList(currentProject, projectList) {
@@ -232,7 +279,8 @@ export function updateTodoList(currentProject, projectList) {
         editTodoBtn.textContent = "Edit";
         todoObjectButtons.appendChild(editTodoBtn);
         editTodoBtn.addEventListener("click", (e) => {
-            editTodo(e, projectList);
+            console.log(projectList);
+            openEditTodoModal(e, projectList);
         });
 
         const todoDate = document.createElement("p");
@@ -242,44 +290,6 @@ export function updateTodoList(currentProject, projectList) {
     })
 }
 
-function editTodo(e, projectList) {
-    openAddTodoModal(projectList);
-    const todoForm = document.getElementById("todoForm");
-    const todoId = e.target.id;
-    const todo = projectList.find(project => todo.id === todoId);
-
-    const fieldMap = {
-        "todo-title": "title",
-        "todo-desc": "desc",
-        "todo-notes": "notes",
-        "todo-priority": "priority",
-        "todo-dueDate": "dueDate"
-    };
-
-    ["todo-title", "todo-desc", "todo-notes", "todo-priority", "todo-dueDate"].forEach(input => {
-        const inputField = todoForm.querySelector(`#${input}`);
-        inputField.value = todo[fieldMap[input]];
-    });
-
-    const submitTodoBtn = document.getElementById("submitTodoBtn");
-    submitTodoBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const todoData = new FormData(todoForm);
-        const title = todoData.get("todo-title");
-        const desc = todoData.get("todo-desc");
-        const notes = todoData.get("todo-notes");
-        const priority = todoData.get("todo-priority");
-        const dueDate = todoData.get("todo-dueDate");
-        todo.title = title;
-        todo.desc = desc;
-        todo.notes = notes;
-        todo.priority = priority;
-        todo.dueDate = dueDate;
-        closeAddTodoModal();
-    });
-}
-
-
 export function deleteTodo(e, projectList) {
     const todoProject = e.target.project;
     const parentProject = projectList.find(project => project.title === todoProject);
@@ -288,7 +298,7 @@ export function deleteTodo(e, projectList) {
     parentProject.todos.splice(parentProject.todos.indexOf(todo), 1);
     const todoObject = document.getElementById(todoId);
     todoObject.remove();
-    updateTodoList(parentProject);
+    updateTodoList(parentProject, projectList);
 }
 
 
