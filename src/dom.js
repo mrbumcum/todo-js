@@ -271,6 +271,7 @@ export function updateTodoList(currentProject, projectList) {
         const todoObject = document.createElement("div");
         todoObject.classList.add("todo-object");
         todoObject.setAttribute("id", todo.id);
+        todoObject.setAttribute("data-project-id", currentProject.id);
         todoContainer.appendChild(todoObject);
 
         const todoObjectRow1 = document.createElement("div");
@@ -319,13 +320,19 @@ export function updateTodoList(currentProject, projectList) {
 }
 
 export function deleteTodo(e, projectList) {
-    const todoProject = e.target.project;
-    const parentProject = projectList.find(project => project.title === todoProject);
-    const todoId = e.target.id;
+    const todoElement = e.target.closest(".todo-object");
+    const todoId = todoElement.id;
+    const projectId = todoElement.getAttribute("data-project-id");
+    const parentProject = projectList.find(project => project.id === projectId);
+
+    if (!parentProject) {
+        console.error("Parent project not found for todoId:", todoId, "projectId:", projectId);
+        return;
+    }
+
     const todo = parentProject.todos.find(todo => todo.id === todoId);
     parentProject.todos.splice(parentProject.todos.indexOf(todo), 1);
-    const todoObject = document.getElementById(todoId);
-    todoObject.remove();
+    todoElement.remove();
     updateTodoList(parentProject, projectList);
 }
 
