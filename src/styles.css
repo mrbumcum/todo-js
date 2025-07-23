@@ -56,103 +56,461 @@
     isolation: isolate;
   }
 
+/* === DARK THEME & LAYOUT === */
+:root {
+  --primary-bg: #181f2a;
+  --sidebar-bg: #151a23;
+  --secondary-bg: #002952;
+  --card-bg: #232b3a;
+  --accent: #e3242b;
+  --text-main: #fff;
+  --text-muted: #b0b8c1;
+  --text-accent: #e3242b;
+  --border-radius: 12px;
+  --sidebar-width: 260px;
+  --transition: 0.2s;
+}
+
+body {
+  background: var(--primary-bg);
+  color: var(--text-main);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.left-column {
+  background: var(--sidebar-bg);
+  color: var(--text-main);
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  padding: 32px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  box-shadow: 2px 0 12px 0 rgba(0,0,0,0.12);
+}
+
+.site-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.header-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+#addProjectBtn, #addTodoBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+#addProjectBtn:hover, #addTodoBtn:hover {
+  background: #b71c22;
+}
+
+#project-container {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.project-object {
+  background: var(--card-bg);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 16px 14px;
+  margin-bottom: 14px;
+  color: var(--text-main);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+}
+.project-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.project-object-buttons button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color var(--transition);
+}
+.project-object-buttons button:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.right-column {
+  flex: 1;
+  background: var(--primary-bg);
+  padding: 40px 60px 40px 60px;
+  border-radius: var(--border-radius);
+  min-width: 0;
+}
+
+#todo-container {
+  margin-top: 18px;
+}
+
+.todo-object {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 18px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  color: var(--text-main);
+}
+.todo-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.todo-row2 {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+#todo-name, .todo-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+#todoDate {
+  color: var(--text-accent);
+  font-size: 0.98rem;
+}
+
+/* Priority color dots */
+.todo-priority {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.todo-priority.low { background: #3bb273; }
+.todo-priority.medium { background: #f7b731; }
+.todo-priority.high { background: var(--accent); }
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 18px;
+  height: 18px;
+}
+
+/* Task action buttons */
+#deleteTodoBtn, #editTodoBtn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color var(--transition);
+}
+#deleteTodoBtn:hover, #editTodoBtn:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Modal styling (basic, can be improved) */
+.modal {
+  display: block;
+  background: var(--secondary-bg);
+  color: var(--text-main);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  padding: 32px 28px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.modal-buttons button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  margin-right: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.modal-buttons button:hover {
+  background: #b71c22;
+}
+
+/* === PROJECT MODAL MODERN FORM === */
 #projectModal {
   display: none;
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  padding: 32px 32px 24px 32px;
+  min-width: 350px;
+  max-width: 400px;
+}
+
+#projectForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  gap: 18px;
+}
+
+#projectForm label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 4px;
+  text-align: left;
+}
+#projectForm input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fafbfc;
+  color: #222;
+  margin-bottom: 0;
+  transition: border 0.2s;
+}
+#projectForm input[type="text"]:focus {
+  border: 1.5px solid #2563eb;
+  outline: none;
+  background: #fff;
+}
+
+#projectModal .modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+#submitProjectBtn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#submitProjectBtn:hover {
+  background: #1746a2;
+}
+#cancelProjectBtn {
+  background: #e5e7eb;
+  color: #222;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#cancelProjectBtn:hover {
+  background: #cbd5e1;
 }
 
 #todoModal {
   display: none;
 }
 
-.project-object {
+/* === TODO MODAL MODERN FORM === */
+#todoModal {
+  display: none;
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  padding: 32px 32px 24px 32px;
+  min-width: 350px;
+  max-width: 400px;
+}
+
+#todoForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  gap: 18px;
+}
+#todoForm .form-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0;
+}
+#todoForm label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #222;
+  width: 130px;
+  min-width: 130px;
+  text-align: right;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+#todoForm input[type="text"],
+#todoForm input[type="date"],
+#todoForm select {
+  flex: 1 1 0%;
+  width: auto;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fafbfc;
+  color: #222;
+  margin-bottom: 0;
+  transition: border 0.2s;
+}
+#todoForm input[type="text"]:focus,
+#todoForm input[type="date"]:focus,
+#todoForm select:focus {
+  border: 1.5px solid #2563eb;
+  outline: none;
+  background: #fff;
+}
+#todoModal .modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+#submitTodoBtn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#submitTodoBtn:hover {
+  background: #1746a2;
+}
+#cancelTodoBtn {
+  background: #e5e7eb;
+  color: #222;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#cancelTodoBtn:hover {
+  background: #cbd5e1;
+}
+
+/* === FORM STYLING === */
+#todoForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
-  width: 100%;
-}
-
-.project-object-row1 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.project-object-row2 {
-  display: flex;
-  flex-direction: flex-start;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.project-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.project-description {
-  font-size: 1rem;
-  font-weight: normal;
-}
-
-.todo-object {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
 }
 
-.todo-row1 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+/* Section headers in sidebar */
+.left-column .header-text {
+  color: #b0b8c1;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 24px;
+  margin-bottom: 8px;
 }
 
-.todo-row2 {
-  display: flex;
-  flex-direction: flex-start;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
+/* Project list in sidebar */
+.left-column .project-object {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  box-shadow: none;
+  padding: 6px 0;
+  margin: 0 0 6px 0;
+  border-radius: 0;
+}
+.left-column .project-object:hover {
+  color: var(--accent);
+  background: rgba(227,36,43,0.08);
+  border-radius: 6px;
 }
 
-.todo-name {
-  font-size: 1.5rem;
+/* Misc */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #232b3a;
 }
-
-.todo-notes {
-  font-size: 1rem;
-}
-
-.todo-priority {
-  font-size: 1rem;
-}
-
-.todo-dueDate {
-  font-size: 1rem;
-}
-
-.todo-complete {
-  font-size: 1rem;
-}
-
-.todo-edit {
-  font-size: 1rem;
+::-webkit-scrollbar-thumb {
+  background: #181f2a;
+  border-radius: 8px;
 }
 
 .currentProject {
-  border: 2px solid red;
+  border: 2px solid var(--accent);
+}
+
+/* Muted text */
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* Hide default project/todo objects in template */
+#project-container .project-object:empty,
+#todo-container .todo-object:empty {
+  display: none;
 }

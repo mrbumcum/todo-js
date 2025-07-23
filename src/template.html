@@ -7,14 +7,13 @@
 </head>
 <body>
         <div class="container">
-            <header>
-                <div class="site-name">Puna!</div>
-            </header>
-
             <div class="left-column">
+                <header>
+                    <div class="site-name">Puna!</div>
+                </header>
                 <div class="header-container">
-                <div class="header-text">Projects</div>
                     <button type="button" id="addProjectBtn">+</button>
+                    <div class="header-text">Projects</div>
                 </div>
 
                 <div id="project-container">
@@ -53,30 +52,41 @@
 
             <div class="modal" id="todoModal">
                 <form action="" method="get" id="todoForm">
-                    <label for="todo-title">Title:</label>
-                    <input type="text" name="todo-title" id="todo-title" required>
+                    <div class="form-row">
+                        <label for="todo-title">Title:</label>
+                        <input type="text" name="todo-title" id="todo-title" required>
+                    </div>
 
-                    <label for="desc-title">Description:</label>
-                    <input type="text" name="desc-title" id="desc-title">
+                    <div class="form-row">
+                        <label for="desc-title">Description:</label>
+                        <input type="text" name="desc-title" id="desc-title">
+                    </div>
 
-                    <label for="todo-notes">Notes:</label>
-                    <input type="text" name="todo-notes" id="todo-notes">
+                    <div class="form-row">
+                        <label for="todo-notes">Notes:</label>
+                        <input type="text" name="todo-notes" id="todo-notes">
+                    </div>
 
-                    <label for="todo-priority">Priority:</label>
-                    <select name="todo-priority" id="todo-priority" required>
-                        <option value="low">low</option>
-                        <option value="medium" selected>medium</option>
-                        <option value="high">high</option>
-                    </select>
+                    <div class="form-row">
+                        <label for="todo-priority">Priority:</label>
+                        <select name="todo-priority" id="todo-priority" required>
+                            <option value="low">low</option>
+                            <option value="medium" selected>medium</option>
+                            <option value="high">high</option>
+                        </select>
+                    </div>
 
-                    <label for="todo-dueDate">Due Date:</label>
-                    <input type="date" name="todo-dueDate" id="todo-dueDate">
+                    <div class="form-row">
+                        <label for="todo-dueDate">Due Date:</label>
+                        <input type="date" name="todo-dueDate" id="todo-dueDate">
+                    </div>
 
-                    <label for="todo-project-dropdown">Project:</label>
-                    <!-- TODO: DYNAMICALLY FILL THE DROPDOWN -->
-                    <select name="todo-project-dropdown" id="todo-project-dropdown" required>
-                        <!-- Fill with dynamically created items -->
-                    </select>
+                    <div class="form-row">
+                        <label for="todo-project-dropdown">Project:</label>
+                        <select name="todo-project-dropdown" id="todo-project-dropdown" required>
+                            <!-- Fill with dynamically created items -->
+                        </select>
+                    </div>
                 </form>
 
                 <div class="modal-buttons">
@@ -100,7 +110,7 @@
                 </div>
             </div>
 
-            
+
         </div>
 </body>
 </html>
